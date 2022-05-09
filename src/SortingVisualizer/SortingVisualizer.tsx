@@ -1,31 +1,41 @@
 import { useState, useEffect } from "react";
 import { getArrayFromRange } from "./util";
-import { mergeSortAlgorithm } from "../algorithms";
+import { getMergeSortAnimations } from "../algorithms";
 
 const SortingVisualizer = () => {
 	const [array, setArray] = useState<number[]>([]);
 
 	useEffect(() => {
-		setArray(getArrayFromRange(100, 10, 500));
+		setArray(getArrayFromRange(200, 10, 600));
 	}, []);
 
 	const reset = () => {
-		setArray(getArrayFromRange(100, 10, 500));
+		setArray(getArrayFromRange(200, 10, 600));
 	};
 
 	const mergeSort = () => {
-		// const mergeSortTest = () => {
-		// 	const sortedArray = array.slice().sort((a, b) => a - b); 
-		// 	const mergeSortedArray = mergeSortAlgorithm(array); 
-		// 	for (let i = 0; i < array.length; i++) {
-		// 		if (sortedArray[i] !== mergeSortedArray[i])
-		// 			return false; 
-		// 	}
-
-		// 	return true; 
-		// }
-
-		// console.log(mergeSortTest());
+		const animations = getMergeSortAnimations(array); 
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = Array.from(document.getElementsByClassName('array-bar') as HTMLCollectionOf<HTMLElement>); 
+			const isColorChange = i % 3 !== 2
+			if (isColorChange) {
+				const [barOneIndex, barTwoIndex] = animations[i]; 
+				const barOneStyle = arrayBars[barOneIndex].style; 
+				const barTwoStyle = arrayBars[barTwoIndex].style;
+				const color = i % 3 === 0 ? "red" : "indigo";
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color; 
+					barTwoStyle.backgroundColor = color; 
+				}, i * 5); 
+			}
+			else {
+				setTimeout(() => {
+					const [barOneIndex, newHeight] = animations[i];
+          const barOneStyle = arrayBars[barOneIndex].style;
+          barOneStyle.height = `${newHeight}px`;
+        }, i * 5);
+			}
+		}
 	}
 
 	const quickSort = () => {
@@ -54,7 +64,7 @@ const SortingVisualizer = () => {
 				{array.map((value, index) => (
 					<div
 						key={`${value},${index}`}
-						className="w-2 bg-indigo-600 m-px"
+						className="array-bar w-1 bg-indigo-600 m-px"
 						style={{ height: `${value}px` }}
 					/>
 				))}
