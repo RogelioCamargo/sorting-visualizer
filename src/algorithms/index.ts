@@ -1,3 +1,3 @@
-import mergeSortAlgorithm from "./mergeSort";
+import getMergeSortAnimations from "./mergeSort";
 
-export { mergeSortAlgorithm }; 
+export { getMergeSortAnimations };
