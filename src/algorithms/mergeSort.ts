@@ -1,4 +1,4 @@
-const getMergeSortAnimations = (array: Array<number>, bars: Array<HTMLElement>) => {
+const animateMergeSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 	if (array.length <= 1) return;
 	let counter = [0];
 	const duplicate = array.slice();
@@ -112,4 +112,4 @@ const changeBarHeight = (
 	counter[0]++;
 };
 
-export default getMergeSortAnimations;
+export default animateMergeSort;

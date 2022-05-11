@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getArrayFromRange } from "./util";
-import { getBubbleSortAnimations, getMergeSortAnimations } from "../algorithms";
+import { getBubbleSortAnimations, animateMergeSort } from "../algorithms";
 
 const SortingVisualizer = () => {
 	const [array, setArray] = useState<number[]>([]);
@@ -16,13 +16,13 @@ const SortingVisualizer = () => {
 		setArray(getArrayFromRange(arraySize, 10, 600));
 	};
 
-	const animateMergeSort = () => {
+	const mergeSort = () => {
 		const bars = Array.from(
 		document.getElementsByClassName(
 				"array-bar"
 			) as HTMLCollectionOf<HTMLElement>
 		);
-		getMergeSortAnimations(array, bars);
+		animateMergeSort(array, bars);
 	};
 
 	const quickSort = () => {
@@ -73,7 +73,7 @@ const SortingVisualizer = () => {
 				<button className="bg-indigo-600 text-white w-32" onClick={reset}>
 					Reset
 				</button>
-				<button className="bg-blue-600 text-white w-32" onClick={animateMergeSort}>
+				<button className="bg-blue-600 text-white w-32" onClick={mergeSort}>
 					Merge Sort
 				</button>
 				<button className="bg-red-600 text-white w-32" onClick={quickSort}>
