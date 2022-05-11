@@ -7,7 +7,7 @@ const SortingVisualizer = () => {
 
 	const arraySize = 100;
 	const algorithmSpeed = 10;
-	
+
 	useEffect(() => {
 		setArray(getArrayFromRange(arraySize, 10, 600));
 	}, []);
@@ -17,31 +17,12 @@ const SortingVisualizer = () => {
 	};
 
 	const animateMergeSort = () => {
-		const animations = getMergeSortAnimations(array);
-		for (let i = 0; i < animations.length; i++) {
-			const arrayBars = Array.from(
-				document.getElementsByClassName(
-					"array-bar"
-				) as HTMLCollectionOf<HTMLElement>
-			);
-			const isColorChange = i % 3 !== 2;
-			if (isColorChange) {
-				const [barOneIndex, barTwoIndex] = animations[i];
-				const barOneStyle = arrayBars[barOneIndex].style;
-				const barTwoStyle = arrayBars[barTwoIndex].style;
-				const color = i % 3 === 0 ? "red" : "indigo";
-				setTimeout(() => {
-					barOneStyle.backgroundColor = color;
-					barTwoStyle.backgroundColor = color;
-				}, i * algorithmSpeed);
-			} else {
-				setTimeout(() => {
-					const [barOneIndex, newHeight] = animations[i];
-					const barOneStyle = arrayBars[barOneIndex].style;
-					barOneStyle.height = `${newHeight}px`;
-				}, i * algorithmSpeed);
-			}
-		}
+		const bars = Array.from(
+		document.getElementsByClassName(
+				"array-bar"
+			) as HTMLCollectionOf<HTMLElement>
+		);
+		getMergeSortAnimations(array, bars);
 	};
 
 	const quickSort = () => {

@@ -1,9 +1,8 @@
-const getMergeSortAnimations = (array: Array<number>): Array<number[]> => {
-	if (array.length <= 1) return [[]];
-	const animations: Array<number[]> = [];
+const getMergeSortAnimations = (array: Array<number>, bars: Array<HTMLElement>) => {
+	if (array.length <= 1) return;
+	let counter = [0];
 	const duplicate = array.slice();
-	mergeSortHelper(array, 0, array.length - 1, duplicate, animations);
-	return animations;
+	mergeSortHelper(array, 0, array.length - 1, duplicate, bars, counter);
 };
 
 const mergeSortHelper = (
@@ -11,7 +10,8 @@ const mergeSortHelper = (
 	startIndex: number,
 	endIndex: number,
 	duplicateArray: Array<number>,
-	animations: Array<number[]>
+	bars: Array<HTMLElement>,
+	counter: Array<number>
 ) => {
 	if (startIndex === endIndex) return;
 
@@ -21,14 +21,16 @@ const mergeSortHelper = (
 		startIndex,
 		middleIndex,
 		mainArray,
-		animations
+		bars,
+		counter
 	);
 	mergeSortHelper(
 		duplicateArray,
 		middleIndex + 1,
 		endIndex,
 		mainArray,
-		animations
+		bars,
+		counter
 	);
 	doMerge(
 		mainArray,
@@ -36,7 +38,8 @@ const mergeSortHelper = (
 		middleIndex,
 		endIndex,
 		duplicateArray,
-		animations
+		bars,
+		counter
 	);
 };
 
@@ -46,36 +49,67 @@ const doMerge = (
 	middleIndex: number,
 	endIndex: number,
 	duplicateArray: Array<number>,
-	animations: Array<number[]>
+	bars: Array<HTMLElement>,
+	counter: Array<number>
 ) => {
 	let k = startIndex;
 	let i = startIndex;
 	let j = middleIndex + 1;
 
 	while (i <= middleIndex && j <= endIndex) {
-		animations.push([i, j]);
-		animations.push([i, j]);
+		changeColor(i, j, "red", bars, counter);
+		changeColor(i, j, "indigo", bars, counter);
 		if (duplicateArray[i] < duplicateArray[j]) {
-			animations.push([k, duplicateArray[i]]);
+			changeBarHeight(k, duplicateArray[i], bars, counter);
 			mainArray[k++] = duplicateArray[i++];
 		} else {
-			animations.push([k, duplicateArray[j]]);
+			changeBarHeight(k, duplicateArray[j], bars, counter);
 			mainArray[k++] = duplicateArray[j++];
 		}
 	}
 
 	while (i <= middleIndex) {
-		animations.push([i, i]);
-		animations.push([i, i]);
-		animations.push([k, duplicateArray[i]]);
+		changeColor(i, i, "red", bars, counter);
+		changeColor(i, i, "indigo", bars, counter);
+		changeBarHeight(k, duplicateArray[i], bars, counter);
 		mainArray[k++] = duplicateArray[i++];
 	}
 	while (j <= endIndex) {
-		animations.push([j, j]);
-		animations.push([j, j]);
-		animations.push([k, duplicateArray[j]]);
+		changeColor(j, j, "red", bars, counter);
+		changeColor(j, j, "indigo", bars, counter);
+		changeBarHeight(k, duplicateArray[j], bars, counter);
 		mainArray[k++] = duplicateArray[j++];
 	}
+};
+
+const changeColor = (
+	indexOne: number,
+	indexTwo: number,
+	color: string,
+	bars: Array<HTMLElement>,
+	counter: Array<number>
+) => {
+	const barOneStyle = bars[indexOne].style;
+	const barTwoStyle = bars[indexTwo].style;
+	window.setTimeout(() => {
+		barOneStyle.backgroundColor = color;
+		barTwoStyle.backgroundColor = color;
+		console.log(counter);
+	}, counter[0] * 5);
+	counter[0]++;
+};
+
+const changeBarHeight = (
+	index: number,
+	newHeight: number,
+	bars: Array<HTMLElement>,
+	counter: Array<number>
+) => {
+	const barStyle = bars[index].style;
+	window.setTimeout(() => {
+		barStyle.height = `${newHeight}px`;
+	}, counter[0] * 5);
+	counter[0]++;
 };
 
 export default getMergeSortAnimations;
