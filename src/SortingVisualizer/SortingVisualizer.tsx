@@ -6,7 +6,6 @@ const SortingVisualizer = () => {
 	const [array, setArray] = useState<number[]>([]);
 
 	const arraySize = 100;
-	const algorithmSpeed = 10;
 
 	useEffect(() => {
 		setArray(getArrayFromRange(arraySize, 10, 600));
@@ -34,36 +33,12 @@ const SortingVisualizer = () => {
 	};
 
 	const animateBubbleSort = () => {
-		const animations = getBubbleSortAnimations(array);
-		for (let i = 0; i < animations.length; i++) {
-			console.log(i);
-			const arrayBars = Array.from(
-				document.getElementsByClassName(
-					"array-bar"
-				) as HTMLCollectionOf<HTMLElement>
-			);
-				
-			const [barOneIndex, barTwoIndex, instruction] = animations[i];
-			const isColorChange = instruction !== 1;
-			if (isColorChange) {
-				const barOneStyle = arrayBars[barOneIndex].style;
-				const barTwoStyle = arrayBars[barTwoIndex].style;
-				const color = instruction === -1 ? "red" : "indigo";
-				setTimeout(() => {
-					barOneStyle.backgroundColor = color;
-					barTwoStyle.backgroundColor = color;
-				}, i * algorithmSpeed);
-			} else {
-				setTimeout(() => {
-					const [barOneIndex, barTwoIndex] = animations[i];
-					const barOneStyle = arrayBars[barOneIndex].style;
-					const barTwoStyle = arrayBars[barTwoIndex].style;
-					const placeholder = barOneStyle.height; 
-					barOneStyle.height = barTwoStyle.height;
-					barTwoStyle.height = placeholder; 
-				}, i * algorithmSpeed);
-			}
-		}		
+		const bars = Array.from(
+		document.getElementsByClassName(
+				"array-bar"
+			) as HTMLCollectionOf<HTMLElement>
+		);
+		getBubbleSortAnimations(array, bars);	
 	};
 
 	return (
