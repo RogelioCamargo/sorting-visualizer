@@ -1,4 +1,4 @@
-const getBubbleSortAnimations = (array: Array<number>, bars: Array<HTMLElement>) => {
+const animateBubbleSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 	let isSorted = false; 
 	let counter = 0; 
 	let animation = [0]; 
@@ -51,4 +51,4 @@ const swapBarHeights = (
 	counter[0]++;
 };
 
-export default getBubbleSortAnimations; 
+export default animateBubbleSort; 

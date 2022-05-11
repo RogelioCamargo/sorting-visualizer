@@ -1,4 +1,4 @@
 import animateMergeSort from "./mergeSort";
-import getBubbleSortAnimations from "./bubbleSort";
+import animateBubbleSort from "./bubbleSort";
 
-export { animateMergeSort, getBubbleSortAnimations };
+export { animateMergeSort, animateBubbleSort };

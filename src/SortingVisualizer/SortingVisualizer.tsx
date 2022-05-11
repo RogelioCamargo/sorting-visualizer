@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getArrayFromRange } from "./util";
-import { getBubbleSortAnimations, animateMergeSort } from "../algorithms";
+import { animateBubbleSort, animateMergeSort } from "../algorithms";
 
 const SortingVisualizer = () => {
 	const [array, setArray] = useState<number[]>([]);
@@ -32,13 +32,13 @@ const SortingVisualizer = () => {
 		console.log("DO HEAP SORT!");
 	};
 
-	const animateBubbleSort = () => {
+	const bubbleSort = () => {
 		const bars = Array.from(
 		document.getElementsByClassName(
 				"array-bar"
 			) as HTMLCollectionOf<HTMLElement>
 		);
-		getBubbleSortAnimations(array, bars);	
+		animateBubbleSort(array, bars);	
 	};
 
 	return (
@@ -57,7 +57,7 @@ const SortingVisualizer = () => {
 				<button className="bg-green-600 text-white w-32" onClick={heapSort}>
 					Heap Sort
 				</button>
-				<button className="bg-orange-600 text-white w-32" onClick={animateBubbleSort}>
+				<button className="bg-orange-600 text-white w-32" onClick={bubbleSort}>
 					Bubble Sort
 				</button>
 			</div>
