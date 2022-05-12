@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { getArrayFromRange } from "./util";
-import { animateBubbleSort, animateMergeSort } from "../algorithms";
+import { animateBubbleSort, animateMergeSort, animateQuickSort } from "../algorithms";
 
 const SortingVisualizer = () => {
 	const [array, setArray] = useState<number[]>([]);
 
-	const arraySize = 100;
+	const arraySize = 150;
 
 	useEffect(() => {
 		setArray(getArrayFromRange(arraySize, 10, 600));
@@ -15,17 +15,23 @@ const SortingVisualizer = () => {
 		setArray(getArrayFromRange(arraySize, 10, 600));
 	};
 
-	const mergeSort = () => {
+	const getBars = () => {
 		const bars = Array.from(
 		document.getElementsByClassName(
 				"array-bar"
 			) as HTMLCollectionOf<HTMLElement>
 		);
+		return bars; 
+	}
+
+	const mergeSort = () => {
+		const bars = getBars();
 		animateMergeSort(array, bars);
 	};
 
 	const quickSort = () => {
-		console.log("DO QUICK SORT!");
+		const bars = getBars(); 
+		animateQuickSort(array, bars); 
 	};
 
 	const heapSort = () => {
@@ -33,11 +39,7 @@ const SortingVisualizer = () => {
 	};
 
 	const bubbleSort = () => {
-		const bars = Array.from(
-		document.getElementsByClassName(
-				"array-bar"
-			) as HTMLCollectionOf<HTMLElement>
-		);
+		const bars = getBars();
 		animateBubbleSort(array, bars);	
 	};
 

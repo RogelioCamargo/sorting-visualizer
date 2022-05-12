@@ -1,37 +1,48 @@
+import { swap, changeColor, swapBarHeights } from "./util";
+
 const animateQuickSort = (array: Array<number>, bars: Array<HTMLElement>) => {
-	quickSortHelper(array, 0, array.length - 1); 
-	return array; 
+	const animation = [0];
+	quickSortHelper(array, 0, array.length - 1, bars, animation);
+};
 
-}; 
+const quickSortHelper = (
+	array: Array<number>,
+	startIndex: number,
+	endIndex: number,
+	bars: Array<HTMLElement>,
+	animation: Array<number>
+) => {
+	if (startIndex >= endIndex) return;
 
-const quickSortHelper = (array: Array<number>, startIndex: number, endIndex: number) => {
-	if (startIndex >= endIndex) return; 
-
-	const pivotIndex = startIndex; 
-	let leftIndex = startIndex + 1; 
-	let rightIndex = endIndex; 
+	const pivotIndex = startIndex;
+	let leftIndex = startIndex + 1;
+	let rightIndex = endIndex;
 
 	while (rightIndex >= leftIndex) {
-		if (array[leftIndex] > array[pivotIndex] && array[rightIndex] < array[pivotIndex]) 
+		changeColor(leftIndex, rightIndex, "red", bars, animation);
+		changeColor(leftIndex, rightIndex, "indigo", bars, animation);
+		if (
+			array[leftIndex] > array[pivotIndex] &&
+			array[rightIndex] < array[pivotIndex]
+		) {
+			swapBarHeights(leftIndex, rightIndex, bars, animation);
 			swap(leftIndex, rightIndex, array);
-		if (array[leftIndex] <= array[pivotIndex]) leftIndex++; 
-		if (array[rightIndex] >= array[pivotIndex]) rightIndex--; 
+		}
+		if (array[leftIndex] <= array[pivotIndex]) leftIndex++;
+		if (array[rightIndex] >= array[pivotIndex]) rightIndex--;
 	}
 
-	swap(pivotIndex, rightIndex, array); 
-	const isLeftSubarraySmaller = (pivotIndex - 1) - startIndex < endIndex - (pivotIndex + 1);  
+	swapBarHeights(pivotIndex, rightIndex, bars, animation);
+	swap(pivotIndex, rightIndex, array);
+	const isLeftSubarraySmaller =
+		rightIndex - 1 - startIndex < endIndex - (rightIndex + 1);
 	if (isLeftSubarraySmaller) {
-		quickSortHelper(array, startIndex, pivotIndex - 1); 
-		quickSortHelper(array, pivotIndex + 1, endIndex);
+		quickSortHelper(array, startIndex, rightIndex - 1, bars, animation);
+		quickSortHelper(array, rightIndex + 1, endIndex, bars, animation);
+	} else {
+		quickSortHelper(array, rightIndex + 1, endIndex, bars, animation);
+		quickSortHelper(array, startIndex, rightIndex - 1, bars, animation);
 	}
-	else {
-		quickSortHelper(array, pivotIndex + 1, endIndex);
-		quickSortHelper(array, startIndex, pivotIndex - 1); 
-	}
-}
+};
 
-const swap = (indexOne: number, indexTwo: number, array: Array<number>) => {
-	[array[indexOne], array[indexTwo]] = [array[indexTwo], array[indexOne]];
-}
-
-export default animateQuickSort; 
+export default animateQuickSort;
