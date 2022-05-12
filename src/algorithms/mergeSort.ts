@@ -1,8 +1,10 @@
+import { changeColor, changeBarHeight } from "./util";
+
 const animateMergeSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 	if (array.length <= 1) return;
-	let counter = [0];
+	const animation = [0];
 	const duplicate = array.slice();
-	mergeSortHelper(array, 0, array.length - 1, duplicate, bars, counter);
+	mergeSortHelper(array, 0, array.length - 1, duplicate, animation, bars);
 };
 
 const mergeSortHelper = (
@@ -10,8 +12,8 @@ const mergeSortHelper = (
 	startIndex: number,
 	endIndex: number,
 	duplicateArray: Array<number>,
-	bars: Array<HTMLElement>,
-	counter: Array<number>
+	animation: Array<number>,
+	bars: Array<HTMLElement>
 ) => {
 	if (startIndex === endIndex) return;
 
@@ -21,16 +23,16 @@ const mergeSortHelper = (
 		startIndex,
 		middleIndex,
 		mainArray,
-		bars,
-		counter
+		animation,
+		bars
 	);
 	mergeSortHelper(
 		duplicateArray,
 		middleIndex + 1,
 		endIndex,
 		mainArray,
-		bars,
-		counter
+		animation,
+		bars
 	);
 	doMerge(
 		mainArray,
@@ -38,8 +40,8 @@ const mergeSortHelper = (
 		middleIndex,
 		endIndex,
 		duplicateArray,
-		bars,
-		counter
+		animation,
+		bars
 	);
 };
 
@@ -49,67 +51,37 @@ const doMerge = (
 	middleIndex: number,
 	endIndex: number,
 	duplicateArray: Array<number>,
-	bars: Array<HTMLElement>,
-	counter: Array<number>
+	animation: Array<number>,
+	bars: Array<HTMLElement>
 ) => {
 	let k = startIndex;
 	let i = startIndex;
 	let j = middleIndex + 1;
 
 	while (i <= middleIndex && j <= endIndex) {
-		changeColor(i, j, "red", bars, counter);
-		changeColor(i, j, "indigo", bars, counter);
+		changeColor(i, j, "red", bars, animation);
+		changeColor(i, j, "indigo", bars, animation);
 		if (duplicateArray[i] < duplicateArray[j]) {
-			changeBarHeight(k, duplicateArray[i], bars, counter);
+			changeBarHeight(k, duplicateArray[i], bars, animation);
 			mainArray[k++] = duplicateArray[i++];
 		} else {
-			changeBarHeight(k, duplicateArray[j], bars, counter);
+			changeBarHeight(k, duplicateArray[j], bars, animation);
 			mainArray[k++] = duplicateArray[j++];
 		}
 	}
 
 	while (i <= middleIndex) {
-		changeColor(i, i, "red", bars, counter);
-		changeColor(i, i, "indigo", bars, counter);
-		changeBarHeight(k, duplicateArray[i], bars, counter);
+		changeColor(i, i, "red", bars, animation);
+		changeColor(i, i, "indigo", bars, animation);
+		changeBarHeight(k, duplicateArray[i], bars, animation);
 		mainArray[k++] = duplicateArray[i++];
 	}
 	while (j <= endIndex) {
-		changeColor(j, j, "red", bars, counter);
-		changeColor(j, j, "indigo", bars, counter);
-		changeBarHeight(k, duplicateArray[j], bars, counter);
+		changeColor(j, j, "red", bars, animation);
+		changeColor(j, j, "indigo", bars, animation);
+		changeBarHeight(k, duplicateArray[j], bars, animation);
 		mainArray[k++] = duplicateArray[j++];
 	}
-};
-
-const changeColor = (
-	indexOne: number,
-	indexTwo: number,
-	color: string,
-	bars: Array<HTMLElement>,
-	counter: Array<number>
-) => {
-	const barOneStyle = bars[indexOne].style;
-	const barTwoStyle = bars[indexTwo].style;
-	window.setTimeout(() => {
-		barOneStyle.backgroundColor = color;
-		barTwoStyle.backgroundColor = color;
-		console.log(counter);
-	}, counter[0] * 5);
-	counter[0]++;
-};
-
-const changeBarHeight = (
-	index: number,
-	newHeight: number,
-	bars: Array<HTMLElement>,
-	counter: Array<number>
-) => {
-	const barStyle = bars[index].style;
-	window.setTimeout(() => {
-		barStyle.height = `${newHeight}px`;
-	}, counter[0] * 5);
-	counter[0]++;
 };
 
 export default animateMergeSort;

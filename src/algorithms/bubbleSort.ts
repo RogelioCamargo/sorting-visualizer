@@ -1,7 +1,9 @@
+import { changeColor, swapBarHeights } from "./util";
+
 const animateBubbleSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 	let isSorted = false; 
 	let counter = 0; 
-	let animation = [0]; 
+	const animation = [0]; 
 	while (!isSorted) {
 		isSorted = true; 
 		for (let i = 1; i < array.length - counter; i++) {
@@ -17,38 +19,5 @@ const animateBubbleSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 		counter++; 
 	}
 }
-
-const changeColor = (
-	indexOne: number,
-	indexTwo: number,
-	color: string,
-	bars: Array<HTMLElement>,
-	animation: Array<number>
-) => {
-	const barOneStyle = bars[indexOne].style;
-	const barTwoStyle = bars[indexTwo].style;
-	window.setTimeout(() => {
-		barOneStyle.backgroundColor = color;
-		barTwoStyle.backgroundColor = color;
-		console.log(animation);
-	}, animation[0] * 2.5);
-	animation[0]++;
-};
-
-const swapBarHeights = (
-	indexOne: number,
-	indexTwo: number,
-	bars: Array<HTMLElement>,
-	counter: Array<number>
-) => {
-	const barOneStyle = bars[indexOne].style;
-	const barTwoStyle = bars[indexTwo].style;
-	window.setTimeout(() => {
-		const height = barOneStyle.height;
-		barOneStyle.height = barTwoStyle.height;
-		barTwoStyle.height = height;
-	}, counter[0] * 2.5);
-	counter[0]++;
-};
 
 export default animateBubbleSort; 

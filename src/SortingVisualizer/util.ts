@@ -14,4 +14,13 @@ const getArrayFromRange = (
 	return array;
 };
 
-export { getNumberFromRange, getArrayFromRange };
+const getArrayInReverse = (
+	amount: number,
+): Array<number> => {
+	const array = [];
+	for (let i = amount; i > 5; i--) array.push(i);
+
+	return array;
+};
+
+export { getNumberFromRange, getArrayFromRange, getArrayInReverse };
