@@ -1,4 +1,4 @@
-const ALGORITHM_SPEED = 5;
+const ALGORITHM_SPEED = 1;
 
 const changeColor = (
 	indexOne: number,
@@ -7,13 +7,13 @@ const changeColor = (
 	bars: Array<HTMLElement>,
 	animation: Array<number>
 ) => {
+	animation[0]++;
 	const barOneStyle = bars[indexOne].style;
 	const barTwoStyle = bars[indexTwo].style;
 	window.setTimeout(() => {
 		barOneStyle.backgroundColor = color;
 		barTwoStyle.backgroundColor = color;
 	}, animation[0] * ALGORITHM_SPEED);
-	animation[0]++;
 };
 
 const swapBarHeights = (
@@ -22,6 +22,7 @@ const swapBarHeights = (
 	bars: Array<HTMLElement>,
 	animation: Array<number>
 ) => {
+	animation[0]++;
 	const barOneStyle = bars[indexOne].style;
 	const barTwoStyle = bars[indexTwo].style;
 	window.setTimeout(() => {
@@ -29,7 +30,6 @@ const swapBarHeights = (
 		barOneStyle.height = barTwoStyle.height;
 		barTwoStyle.height = height;
 	}, animation[0] * ALGORITHM_SPEED);
-	animation[0]++;
 };
 
 const changeBarHeight = (
@@ -37,12 +37,12 @@ const changeBarHeight = (
 	newHeight: number,
 	bars: Array<HTMLElement>,
 	counter: Array<number>
-) => {
+	) => {
+	counter[0]++;
 	const barStyle = bars[index].style;
 	window.setTimeout(() => {
 		barStyle.height = `${newHeight}px`;
 	}, counter[0] * ALGORITHM_SPEED);
-	counter[0]++;
 };
 
 const swap = (indexOne: number, indexTwo: number, array: Array<number>) => {

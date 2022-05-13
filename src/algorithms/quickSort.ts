@@ -25,15 +25,15 @@ const quickSortHelper = (
 			array[leftIndex] > array[pivotIndex] &&
 			array[rightIndex] < array[pivotIndex]
 		) {
-			swapBarHeights(leftIndex, rightIndex, bars, animation);
 			swap(leftIndex, rightIndex, array);
+			swapBarHeights(leftIndex, rightIndex, bars, animation);
 		}
 		if (array[leftIndex] <= array[pivotIndex]) leftIndex++;
 		if (array[rightIndex] >= array[pivotIndex]) rightIndex--;
 	}
 
-	swapBarHeights(pivotIndex, rightIndex, bars, animation);
 	swap(pivotIndex, rightIndex, array);
+	swapBarHeights(pivotIndex, rightIndex, bars, animation);
 	const isLeftSubarraySmaller =
 		rightIndex - 1 - startIndex < endIndex - (rightIndex + 1);
 	if (isLeftSubarraySmaller) {

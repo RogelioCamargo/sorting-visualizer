@@ -4,7 +4,7 @@ import SortingVisualizer from "./SortingVisualizer";
 
 function App() {
   return (
-    <div className="App">
+    <div className="h-screen">
       <SortingVisualizer />
     </div>
   );
