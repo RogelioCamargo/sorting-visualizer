@@ -1,17 +1,21 @@
-import { swap } from "./util";
+import { swap, swapBarHeights, changeColor } from "./util";
 
-const animateHeapSort = (array: Array<number>) => {
-	buildMaxHeap(array);
+const animateHeapSort = (array: Array<number>, bars: Array<HTMLElement>) => {
+	const animation = [0];
+	buildMaxHeap(array, bars, animation);
 	for (let endIndex = array.length - 1; endIndex > 0; endIndex--) {
+		swapBarHeights(0, endIndex, bars, animation); 
 		swap(0, endIndex, array);
-		shiftDown(0, endIndex - 1, array);
+		shiftDown(0, endIndex - 1, array, bars, animation);
 	}
 };
 
 const shiftDown = (
 	currentIndex: number,
 	endIndex: number,
-	array: Array<number>
+	array: Array<number>, 
+	bars: Array<HTMLElement>,
+	animation: Array<number>
 ) => {
 	let leftChildIndex = currentIndex * 2 + 1;
 	while (leftChildIndex <= endIndex) {
@@ -24,9 +28,12 @@ const shiftDown = (
 		)
 			indexToSwap = rightChildIndex;
 		else indexToSwap = leftChildIndex;
-
+		
+		changeColor(indexToSwap, currentIndex, "red", bars, animation);
+		changeColor(indexToSwap, currentIndex, "indigo", bars, animation);
 		if (array[indexToSwap] <= array[currentIndex]) return;
 		else {
+			swapBarHeights(indexToSwap, currentIndex, bars, animation)
 			swap(indexToSwap, currentIndex, array);
 			currentIndex = indexToSwap;
 			leftChildIndex = currentIndex * 2 + 1;
@@ -34,10 +41,10 @@ const shiftDown = (
 	}
 };
 
-const buildMaxHeap = (array: Array<number>) => {
+const buildMaxHeap = (array: Array<number>, bars: Array<HTMLElement>, animation: Array<number>) => {
 	const firstParentIndex = Math.floor((array.length - 2) / 2);
 	for (let currentIndex = firstParentIndex; currentIndex >= 0; currentIndex--)
-		shiftDown(currentIndex, array.length - 1, array);
+		shiftDown(currentIndex, array.length - 1, array, bars, animation);
 };
 
 export default animateHeapSort;
