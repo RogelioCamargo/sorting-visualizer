@@ -1,4 +1,5 @@
 import { swap, changeColor, swapBarHeights } from "./util";
+import { primaryColor, secondaryColor } from "./constants";
 
 const animateQuickSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 	const animation = [0];
@@ -19,8 +20,8 @@ const quickSortHelper = (
 	let rightIndex = endIndex;
 
 	while (rightIndex >= leftIndex) {
-		changeColor(leftIndex, rightIndex, "red", bars, animation);
-		changeColor(leftIndex, rightIndex, "indigo", bars, animation);
+		changeColor(leftIndex, rightIndex, secondaryColor, bars, animation);
+		changeColor(leftIndex, rightIndex, primaryColor, bars, animation);
 		if (
 			array[leftIndex] > array[pivotIndex] &&
 			array[rightIndex] < array[pivotIndex]

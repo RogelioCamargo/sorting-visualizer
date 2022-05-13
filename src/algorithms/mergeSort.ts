@@ -1,4 +1,5 @@
 import { changeColor, changeBarHeight } from "./util";
+import { primaryColor, secondaryColor } from "./constants";
 
 const animateMergeSort = (array: Array<number>, bars: Array<HTMLElement>) => {
 	if (array.length <= 1) return;
@@ -59,8 +60,8 @@ const doMerge = (
 	let j = middleIndex + 1;
 
 	while (i <= middleIndex && j <= endIndex) {
-		changeColor(i, j, "red", bars, animation);
-		changeColor(i, j, "indigo", bars, animation);
+		changeColor(i, j, secondaryColor, bars, animation);
+		changeColor(i, j, primaryColor, bars, animation);
 		if (duplicateArray[i] < duplicateArray[j]) {
 			changeBarHeight(k, duplicateArray[i], bars, animation);
 			mainArray[k++] = duplicateArray[i++];
@@ -71,14 +72,14 @@ const doMerge = (
 	}
 
 	while (i <= middleIndex) {
-		changeColor(i, i, "red", bars, animation);
-		changeColor(i, i, "indigo", bars, animation);
+		changeColor(i, i, secondaryColor, bars, animation);
+		changeColor(i, i, primaryColor, bars, animation);
 		changeBarHeight(k, duplicateArray[i], bars, animation);
 		mainArray[k++] = duplicateArray[i++];
 	}
 	while (j <= endIndex) {
-		changeColor(j, j, "red", bars, animation);
-		changeColor(j, j, "indigo", bars, animation);
+		changeColor(j, j, secondaryColor, bars, animation);
+		changeColor(j, j, primaryColor, bars, animation);
 		changeBarHeight(k, duplicateArray[j], bars, animation);
 		mainArray[k++] = duplicateArray[j++];
 	}

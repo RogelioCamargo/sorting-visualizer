@@ -1,3 +1,4 @@
+import { primaryColor, secondaryColor } from "./constants";
 import { swap, swapBarHeights, changeColor } from "./util";
 
 const animateHeapSort = (array: Array<number>, bars: Array<HTMLElement>) => {
@@ -29,8 +30,8 @@ const shiftDown = (
 			indexToSwap = rightChildIndex;
 		else indexToSwap = leftChildIndex;
 		
-		changeColor(indexToSwap, currentIndex, "red", bars, animation);
-		changeColor(indexToSwap, currentIndex, "indigo", bars, animation);
+		changeColor(indexToSwap, currentIndex, secondaryColor, bars, animation);
+		changeColor(indexToSwap, currentIndex, primaryColor, bars, animation);
 		if (array[indexToSwap] <= array[currentIndex]) return;
 		else {
 			swapBarHeights(indexToSwap, currentIndex, bars, animation)
